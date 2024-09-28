@@ -35,4 +35,14 @@ const HowItWorks = () => {
               </div>
               <div>
                 <h3 className="text-xl font-semibold">{step.title}</h3>
-                <p className="text-gray-600"
+                <p className="text-gray-600">{step.description}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default HowItWorks;
