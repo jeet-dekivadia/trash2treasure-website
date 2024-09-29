@@ -19,13 +19,6 @@ Welcome to **Trash2Treasure**, a unique platform that allows users to upload ima
 - Animated transitions and effects using `framer-motion`.
 - Custom styles with `tailwindcss` for responsive design.
 
----
-
-### trash2treasure
-![trash2treasure]([https://via.placeholder.com/600x300?text=Dashboard+Screenshot](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsE07600fLB-Zv0YnSta5C5CeqB7LdKwMWYQ&s))
-
----
-
 ## 🛠️ Tech Stack
 
 ### Frontend
