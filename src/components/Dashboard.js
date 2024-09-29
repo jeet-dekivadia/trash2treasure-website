@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { getAuth } from 'firebase/auth';
 import { getFirestore, doc, getDoc, updateDoc } from 'firebase/firestore';
 
-const Dashboard = ({ userPoints }) => {
+const Dashboard = ({ userPoints, setUserPoints }) => {
   const [points, setPoints] = useState(userPoints);
   const [userDetails, setUserDetails] = useState({});
   const [shopItems, setShopItems] = useState([
@@ -35,9 +35,14 @@ const Dashboard = ({ userPoints }) => {
     fetchUserDetails();
   }, [user, db]);
 
+  useEffect(() => {
+    setPoints(userPoints);
+  }, [userPoints]);
+
   const handleBuyItem = async (item) => {
     if (points >= item.price) {
       alert(`You bought a ${item.name} for ${item.price} points!`);
+      setUserPoints(prevPoints => prevPoints - item.price);
       setPoints(prevPoints => prevPoints - item.price);
       // Optionally update Firestore here if needed
     } else {
