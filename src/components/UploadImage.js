@@ -27,17 +27,21 @@ const UploadImage = () => {
     const user = auth.currentUser;
 
     if (user) {
-      const userDocRef = doc(db, 'users', user.uid);
-      await updateDoc(userDocRef, {
-        points: increment(100),
-      });
-      setUploadSuccess(true);
-      setFile(null);
+      try {
+        const userDocRef = doc(db, 'users', user.uid);
+        await updateDoc(userDocRef, {
+          points: increment(100),
+        });
+        setUploadSuccess(true);
+        setFile(null);
 
-      setTimeout(() => {
-        alert('Congratulations! You got +100 points!');
-        navigate('/dashboard');
-      }, 5000);
+        setTimeout(() => {
+          alert('Congratulations! You got +100 points!');
+          navigate('/dashboard');
+        }, 5000);
+      } catch (err) {
+        setError('Failed to update points. Please try again.');
+      }
     } else {
       setError('Error uploading image. Please try again.');
     }
@@ -50,7 +54,11 @@ const UploadImage = () => {
       <input type="file" onChange={handleFileChange} accept=".png" className="my-4" />
       {error && <p className="text-red-500">{error}</p>}
       {file && <img src={file} alt="Preview" className="mt-4 w-48 h-48 object-cover" />}
-      <button onClick={addPoints} disabled={!file} className="mt-4 bg-blue-500 text-white px-4 py-2 rounded">
+      <button 
+        onClick={addPoints} 
+        disabled={!file} 
+        className={`mt-4 ${file ? 'bg-blue-500' : 'bg-gray-300'} text-white px-4 py-2 rounded`}
+      >
         Upload Image & Get Points
       </button>
       {uploadSuccess && <p className="text-green-500 mt-2">Image successfully submitted!</p>}
