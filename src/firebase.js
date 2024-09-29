@@ -3,12 +3,13 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "YOUR_FIREBASE_API_KEY",
-  authDomain: "YOUR_FIREBASE_AUTH_DOMAIN",
-  projectId: "YOUR_FIREBASE_PROJECT_ID",
-  storageBucket: "YOUR_FIREBASE_STORAGE_BUCKET",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyBSbRaaG2nDvOL_czv2yObWz8xxWiBKbig",
+  authDomain: "trash2treasure-website.firebaseapp.com",
+  projectId: "trash2treasure-website",
+  storageBucket: "trash2treasure-website.appspot.com",
+  messagingSenderId: "857462004645",
+  appId: "1:857462004645:web:b21774d9ae0461db1c264c",
+  measurementId: "G-7VYKW2B8BX"
 };
 
 const app = initializeApp(firebaseConfig);
