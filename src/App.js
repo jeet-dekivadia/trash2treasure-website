@@ -15,6 +15,7 @@ import Signup from './components/Signup';
 import Login from './components/Login';
 import Dashboard from './components/Dashboard';
 import UploadImage from './components/UploadImage';
+import Leaderboard from './components/Leaderboard'; // Import Leaderboard component
 
 const App = () => {
   const [userPoints, setUserPoints] = useState(1000); // Initialize points
@@ -43,8 +44,9 @@ const App = () => {
             } />
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/dashboard" element={<Dashboard userPoints={userPoints} setUserPoints={setUserPoints} />} />
+            <Route path="/dashboard" element={<Dashboard userPoints={userPoints} />} />
             <Route path="/upload-image" element={<UploadImage setUserPoints={setUserPoints} />} />
+            <Route path="/leaderboard" element={<Leaderboard />} /> {/* Add Leaderboard route */}
           </Routes>
         </motion.div>
       </AuthProvider>
