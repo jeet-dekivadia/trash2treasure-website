@@ -1,4 +1,5 @@
-import React from 'react';
+// src/App.js
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
@@ -16,6 +17,8 @@ import Dashboard from './components/Dashboard';
 import UploadImage from './components/UploadImage';
 
 const App = () => {
+  const [userPoints, setUserPoints] = useState(1000); // Initialize points
+
   return (
     <Router>
       <AuthProvider>
@@ -40,8 +43,8 @@ const App = () => {
             } />
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/upload-image" element={<UploadImage />} />
+            <Route path="/dashboard" element={<Dashboard userPoints={userPoints} setUserPoints={setUserPoints} />} />
+            <Route path="/upload-image" element={<UploadImage setUserPoints={setUserPoints} />} />
           </Routes>
         </motion.div>
       </AuthProvider>
