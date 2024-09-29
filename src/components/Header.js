@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
-const Header = () => {
+const Header = ({ user }) => {
   const [isOpen, setIsOpen] = useState(false);
-
   const menuItems = ['About', 'Features', 'How It Works', 'Impact', 'Download'];
 
   return (
@@ -33,6 +33,18 @@ const Header = () => {
             ))}
           </ul>
         </nav>
+        <div className="hidden md:flex">
+          {/* Conditional Button for "Dashboard" or "Get Started" */}
+          {user ? (
+            <Link to="/dashboard" className="bg-white text-green-500 px-4 py-2 rounded font-semibold hover:bg-green-200">
+              Dashboard
+            </Link>
+          ) : (
+            <Link to="/login" className="bg-white text-green-500 px-4 py-2 rounded font-semibold hover:bg-green-200">
+              Get Started
+            </Link>
+          )}
+        </div>
         <div className="md:hidden">
           <button onClick={() => setIsOpen(!isOpen)} className="focus:outline-none">
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -56,6 +68,18 @@ const Header = () => {
                 </a>
               </li>
             ))}
+            {/* Conditional Button for Small Screen */}
+            <li>
+              {user ? (
+                <Link to="/dashboard" className="block py-2 px-4 hover:bg-green-700 w-full text-center">
+                  Dashboard
+                </Link>
+              ) : (
+                <Link to="/login" className="block py-2 px-4 hover:bg-green-700 w-full text-center">
+                  Get Started
+                </Link>
+              )}
+            </li>
           </ul>
         </motion.div>
       )}
