@@ -1,7 +1,7 @@
 // src/components/UploadImage.js
 import React, { useState } from 'react';
 import { getAuth } from 'firebase/auth';
-import { getFirestore, doc, updateDoc } from 'firebase/firestore';
+import { getFirestore, doc, updateDoc, increment } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 
 const UploadImage = () => {
@@ -14,7 +14,7 @@ const UploadImage = () => {
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     if (selectedFile && selectedFile.type === 'image/png') {
-      setFile(URL.createObjectURL(selectedFile)); // Create a preview URL
+      setFile(URL.createObjectURL(selectedFile));
       setError('');
     } else {
       setFile(null);
@@ -29,7 +29,7 @@ const UploadImage = () => {
     if (user) {
       const userDocRef = doc(db, 'users', user.uid);
       await updateDoc(userDocRef, {
-        points: firebase.firestore.FieldValue.increment(100),
+        points: increment(100),
       });
       setUploadSuccess(true);
       setFile(null);
