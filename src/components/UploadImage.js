@@ -56,8 +56,7 @@ const UploadImage = () => {
       {file && <img src={file} alt="Preview" className="mt-4 w-48 h-48 object-cover" />}
       <button 
         onClick={addPoints} 
-        disabled={!file} 
-        className={`mt-4 ${file ? 'bg-blue-500' : 'bg-gray-300'} text-white px-4 py-2 rounded`}
+        className="mt-4 bg-blue-500 text-white px-4 py-2 rounded"
       >
         Upload Image & Get Points
       </button>
