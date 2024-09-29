@@ -13,9 +13,11 @@ const Header = ({ user }) => {
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-2xl font-bold"
+          className="text-2xl font-bold cursor-pointer" // Added cursor-pointer for better UX
         >
-          Trash2Treasure
+          <Link to="/" onClick={() => setIsOpen(false)}> {/* Make Trash2Treasure clickable */}
+            Trash2Treasure
+          </Link>
         </motion.div>
         <nav className="hidden md:block">
           <ul className="flex space-x-6">
