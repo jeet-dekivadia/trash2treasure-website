@@ -40,9 +40,14 @@ const Header = ({ user }) => {
               Dashboard
             </Link>
           ) : (
-            <Link to="/login" className="bg-white text-green-500 px-4 py-2 rounded font-semibold hover:bg-green-200">
-              Get Started
-            </Link>
+            <>
+              <Link to="/login" className="bg-white text-green-500 px-4 py-2 rounded font-semibold hover:bg-green-200 mr-2">
+                Log In
+              </Link>
+              <Link to="/signup" className="bg-white text-green-500 px-4 py-2 rounded font-semibold hover:bg-green-200">
+                Sign Up
+              </Link>
+            </>
           )}
         </div>
         <div className="md:hidden">
@@ -75,9 +80,14 @@ const Header = ({ user }) => {
                   Dashboard
                 </Link>
               ) : (
-                <Link to="/login" className="block py-2 px-4 hover:bg-green-700 w-full text-center">
-                  Get Started
-                </Link>
+                <>
+                  <Link to="/login" className="block py-2 px-4 hover:bg-green-700 w-full text-center">
+                    Log In
+                  </Link>
+                  <Link to="/signup" className="block py-2 px-4 hover:bg-green-700 w-full text-center">
+                    Sign Up
+                  </Link>
+                </>
               )}
             </li>
           </ul>
