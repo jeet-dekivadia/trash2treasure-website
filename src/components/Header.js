@@ -1,3 +1,4 @@
+// src/components/Header.js
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -35,6 +36,11 @@ const Header = () => {
                 </a>
               </motion.li>
             ))}
+            <motion.li>
+              <Link to="/leaderboard" className="hover:text-green-200 transition duration-300">
+                Leaderboard & Challenges
+              </Link>
+            </motion.li>
           </ul>
         </nav>
         <div className="hidden md:flex">
@@ -83,6 +89,11 @@ const Header = () => {
                 </a>
               </li>
             ))}
+            <li>
+              <Link to="/leaderboard" className="block py-2 px-4 hover:bg-green-700 w-full text-center" onClick={() => setIsOpen(false)}>
+                Leaderboard & Challenges
+              </Link>
+            </li>
             {currentUser ? (
               <>
                 <li>
