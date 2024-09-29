@@ -27,7 +27,6 @@ const App = () => {
         >
           <Header />
           <Routes>
-            {/* Public Pages */}
             <Route path="/" element={
               <>
                 <Hero />
@@ -39,15 +38,9 @@ const App = () => {
                 <Footer />
               </>
             } />
-            
-            {/* Authentication Pages */}
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
-            
-            {/* User Dashboard */}
             <Route path="/dashboard" element={<Dashboard />} />
-            
-            {/* Image Upload for Trash Detection */}
             <Route path="/upload-image" element={<UploadImage />} />
           </Routes>
         </motion.div>
