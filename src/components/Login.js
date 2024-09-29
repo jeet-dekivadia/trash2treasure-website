@@ -25,17 +25,35 @@ export default function Login() {
   }
 
   return (
-    <div className="container mx-auto p-4">
-      <h2 className="text-2xl">Log In</h2>
-      {error && <div className="text-red-500">{error}</div>}
-      <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
-        <input type="email" ref={emailRef} placeholder="Email" className="border p-2" required />
-        <input type="password" ref={passwordRef} placeholder="Password" className="border p-2" required />
-        <button type="submit" disabled={loading} className="bg-green-500 text-white p-2 rounded">
-          Log In
-        </button>
-      </form>
-      <Link to="/signup" className="text-blue-500">Need an account? Sign Up</Link>
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-sm">
+        <h2 className="text-2xl font-bold text-center mb-6">Log In</h2>
+        {error && <div className="text-red-500 mb-4">{error}</div>}
+        <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
+          <input 
+            type="email" 
+            ref={emailRef} 
+            placeholder="Email" 
+            className="border border-gray-300 p-3 rounded" 
+            required 
+          />
+          <input 
+            type="password" 
+            ref={passwordRef} 
+            placeholder="Password" 
+            className="border border-gray-300 p-3 rounded" 
+            required 
+          />
+          <button 
+            type="submit" 
+            disabled={loading} 
+            className="bg-green-500 text-white p-3 rounded hover:bg-green-600 transition"
+          >
+            {loading ? 'Logging In...' : 'Log In'}
+          </button>
+        </form>
+        <Link to="/signup" className="text-blue-500 mt-4 block text-center">Need an account? Sign Up</Link>
+      </div>
     </div>
   );
 }
