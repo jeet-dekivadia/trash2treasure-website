@@ -1,3 +1,4 @@
+// src/components/UploadImage.js
 import React, { useState } from 'react';
 import { getAuth } from 'firebase/auth';
 import { getFirestore, doc, updateDoc } from 'firebase/firestore';
@@ -9,7 +10,6 @@ const UploadImage = () => {
   const navigate = useNavigate();
   const db = getFirestore();
 
-  // Function to handle file upload
   const handleFileChange = (e) => {
     let selectedFile = e.target.files[0];
     if (selectedFile && selectedFile.type === 'image/png') {
@@ -21,7 +21,6 @@ const UploadImage = () => {
     }
   };
 
-  // Function to add points to user's account
   const addPoints = async () => {
     const auth = getAuth();
     const user = auth.currentUser;
