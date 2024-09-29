@@ -3,20 +3,19 @@ import React, { useEffect, useState } from 'react';
 import { getAuth } from 'firebase/auth';
 import { getFirestore, doc, getDoc, updateDoc } from 'firebase/firestore';
 
-const Dashboard = () => {
-  const [points, setPoints] = useState(0);
+const Dashboard = ({ userPoints }) => {
+  const [points, setPoints] = useState(userPoints);
   const [userDetails, setUserDetails] = useState({});
   const [shopItems, setShopItems] = useState([
     { id: 1, name: 'Fridge', price: 25000, img: 'https://m.media-amazon.com/images/I/51Ej284t8CL.jpg' },
-    { id: 2, name: 'Vacuum Cleaner', price: 30000, img: 'path/to/vacuum.jpg' },
-    { id: 3, name: 'iPhone', price: 50000, img: 'path/to/iphone.jpg' },
-    { id: 4, name: 'Smart TV', price: 40000, img: 'path/to/tv.jpg' },
-    { id: 5, name: 'Laptop', price: 45000, img: 'path/to/laptop.jpg' },
-    { id: 6, name: 'Camera', price: 35000, img: 'path/to/camera.jpg' },
-    { id: 7, name: 'Air Conditioner', price: 50000, img: 'path/to/ac.jpg' },
-    { id: 8, name: 'Coffee Machine', price: 30000, img: 'path/to/coffee.jpg' },
-    { id: 9, name: 'Microwave', price: 25000, img: 'path/to/microwave.jpg' },
-    { id: 10, name: 'Smartwatch', price: 40000, img: 'path/to/smartwatch.jpg' },
+    { id: 2, name: 'Vacuum Cleaner', price: 30000, img: 'https://m.media-amazon.com/images/I/51rPtxq-FTL.jpg' },
+    { id: 3, name: 'iPhone', price: 50000, img: 'https://m.media-amazon.com/images/I/61bK6PMOC3L.jpg' },
+    { id: 4, name: 'Smart TV', price: 40000, img: 'https://m.media-amazon.com/images/I/71aKkhuMCIL._AC_UF1000,1000_QL80_.jpg' },
+    { id: 5, name: 'Laptop', price: 45000, img: 'https://m.media-amazon.com/images/I/61GqSlHr41L._AC_UF894,1000_QL80_.jpg' },
+    { id: 6, name: 'Camera', price: 35000, img: 'https://m.media-amazon.com/images/I/71NXowebfKL._AC_UF894,1000_QL80_.jpg' },
+    { id: 7, name: 'Air Conditioner', price: 50000, img: 'https://m.media-amazon.com/images/I/61GTzHsLQdL._AC_UF894,1000_QL80_.jpg' },
+    { id: 8, name: 'Coffee Machine', price: 30000, img: 'https://m.media-amazon.com/images/I/71FxvvpKF4L._AC_UF894,1000_QL80_.jpg' },
+    { id: 9, name: 'Microwave', price: 25000, img: 'https://m.media-amazon.com/images/I/61JgSzvJ6xL._AC_UF1000,1000_QL80_.jpg' },
   ]);
   const auth = getAuth();
   const db = getFirestore();
@@ -29,7 +28,6 @@ const Dashboard = () => {
         const userDoc = await getDoc(userDocRef);
 
         if (userDoc.exists()) {
-          setPoints(userDoc.data().points);
           setUserDetails({ email: user.email, id: user.uid });
         }
       }
@@ -40,11 +38,8 @@ const Dashboard = () => {
   const handleBuyItem = async (item) => {
     if (points >= item.price) {
       alert(`You bought a ${item.name} for ${item.price} points!`);
-      const userDocRef = doc(db, 'users', user.uid);
-      await updateDoc(userDocRef, {
-        points: points - item.price,
-      });
       setPoints(prevPoints => prevPoints - item.price);
+      // Optionally update Firestore here if needed
     } else {
       alert(`You do not have enough points to buy a ${item.name}.`);
     }
