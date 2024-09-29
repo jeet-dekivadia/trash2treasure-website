@@ -1,31 +1,58 @@
-// src/components/UploadImage.js
-import React, { useState } from "react";
-import { db } from "../firebase";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { v4 as uuidv4 } from "uuid";
+import React, { useState } from 'react';
+import { getAuth } from 'firebase/auth';
+import { getFirestore, doc, updateDoc } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
 
-export default function UploadImage() {
-  const [image, setImage] = useState(null);
+const UploadImage = () => {
+  const [file, setFile] = useState(null);
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
+  const db = getFirestore();
 
-  function handleImageUpload(event) {
-    setImage(event.target.files[0]);
-  }
+  // Function to handle file upload
+  const handleFileChange = (e) => {
+    let selectedFile = e.target.files[0];
+    if (selectedFile && selectedFile.type === 'image/png') {
+      setFile(selectedFile);
+      setError('');
+    } else {
+      setFile(null);
+      setError('Please upload a valid .png file.');
+    }
+  };
 
-  async function handleSubmit() {
-    if (image == null) return;
+  // Function to add points to user's account
+  const addPoints = async () => {
+    const auth = getAuth();
+    const user = auth.currentUser;
 
-    const storageRef = ref(storage, `images/${image.name + uuidv4()}`);
-    await uploadBytes(storageRef, image);
-    const url = await getDownloadURL(storageRef);
-    console.log("Uploaded image available at", url);
-    // Run your OpenCV detection here
-  }
+    if (user && file) {
+      const userDocRef = doc(db, 'users', user.uid);
+
+      // Increment the points by 100
+      await updateDoc(userDocRef, {
+        points: 100, // This should increment by 100 each time; adjust logic as needed
+      });
+
+      setFile(null);
+      alert('100 points added to your account!');
+      navigate('/dashboard'); // Redirect to dashboard after upload
+    } else {
+      setError('Error uploading image. Please try again.');
+    }
+  };
 
   return (
-    <div>
-      <h2>Upload a Picture of Trash</h2>
-      <input type="file" onChange={handleImageUpload} />
-      <button onClick={handleSubmit}>Submit</button>
+    <div className="upload-container">
+      <h2>Claim Points by Recycling</h2>
+      <p>Upload a .png image of the item you want to recycle.</p>
+      <input type="file" onChange={handleFileChange} accept=".png" />
+      {error && <p className="error-text">{error}</p>}
+      <button onClick={addPoints} disabled={!file} className="btn-upload">
+        Upload Image & Get Points
+      </button>
     </div>
   );
-}
+};
+
+export default UploadImage;
