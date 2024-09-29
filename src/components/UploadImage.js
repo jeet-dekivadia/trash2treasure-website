@@ -1,16 +1,13 @@
+// src/components/UploadImage.js
 import React, { useState, useEffect } from 'react';
-import { getAuth } from 'firebase/auth';
-import { getFirestore, doc, updateDoc, increment } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 
-const UploadImage = () => {
+const UploadImage = ({ setUserPoints }) => {
   const [file, setFile] = useState(null);
   const [error, setError] = useState('');
-  const [uploadSuccess, setUploadSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
-  const db = getFirestore();
   const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2 MB
+  const navigate = useNavigate();
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -33,44 +30,18 @@ const UploadImage = () => {
     };
   }, [file]);
 
-  const addPoints = async () => {
-    const auth = getAuth();
-    const user = auth.currentUser;
+  const addPoints = () => {
+    setLoading(true);
+    alert('Congratulations! You got +100 points!');
 
-    console.log('Current User:', user); // Debugging line
+    // Increment points
+    setUserPoints(prevPoints => prevPoints + 100);
 
-    if (user) {
-      setLoading(true);
-      // Show success message immediately
-      setUploadSuccess(true);
-      setFile(null);
-      alert('Congratulations! You got +100 points!');
-
-      try {
-        const userDocRef = doc(db, 'users', user.uid);
-        console.log('Updating points for user:', user.uid); // Debugging line
-
-        // Simulate a delay before updating points
-        await new Promise((resolve) => setTimeout(resolve, 2000));
-
-        await updateDoc(userDocRef, {
-          points: increment(100),
-        });
-
-        console.log('Points updated successfully!'); // Debugging line
-        setTimeout(() => {
-          navigate('/dashboard');
-        }, 5000);
-      } catch (err) {
-        console.error('Error updating points:', err); // Log the error
-        setError('Failed to update points. Please try again.');
-      } finally {
-        setLoading(false);
-      }
-    } else {
-      console.error('User is not authenticated'); // Debugging line
-      setError('Error uploading image. Please try again.');
-    }
+    // Simulate a delay before navigating
+    setTimeout(() => {
+      setLoading(false);
+      navigate('/dashboard');
+    }, 2000);
   };
 
   return (
@@ -87,7 +58,6 @@ const UploadImage = () => {
       >
         {loading ? 'Uploading...' : 'Upload Image & Get Points'}
       </button>
-      {uploadSuccess && <p className="text-green-500 mt-2">Image successfully submitted!</p>}
     </div>
   );
 };
