@@ -41,20 +41,28 @@ const UploadImage = () => {
 
     if (user) {
       setLoading(true);
+      // Show success message immediately
+      setUploadSuccess(true);
+      setFile(null);
+      alert('Congratulations! You got +100 points!');
+
       try {
         const userDocRef = doc(db, 'users', user.uid);
+        console.log('Updating points for user:', user.uid); // Debugging line
+
+        // Simulate a delay before updating points
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+
         await updateDoc(userDocRef, {
           points: increment(100),
         });
+
         console.log('Points updated successfully!'); // Debugging line
-        setUploadSuccess(true);
-        setFile(null);
         setTimeout(() => {
-          alert('Congratulations! You got +100 points!');
           navigate('/dashboard');
         }, 5000);
       } catch (err) {
-        console.error('Error updating points:', err); // Debugging line
+        console.error('Error updating points:', err); // Log the error
         setError('Failed to update points. Please try again.');
       } finally {
         setLoading(false);
