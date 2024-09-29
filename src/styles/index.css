@@ -1,52 +1,56 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { AuthProvider } from './contexts/AuthContext';
-import Header from './components/Header';
-import Hero from './components/Hero';
-import About from './components/About';
-import Features from './components/Features';
-import HowItWorks from './components/HowItWorks';
-import Impact from './components/Impact';
-import Download from './components/Download';
-import Footer from './components/Footer';
-import Signup from './components/Signup';
-import Login from './components/Login';
-import Dashboard from './components/Dashboard';
-import UploadImage from './components/UploadImage';
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
-const App = () => {
-  return (
-    <Router>
-      <AuthProvider>
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-          className="bg-gradient-to-b from-green-50 to-green-100 min-h-screen"
-        >
-          <Header />
-          <Routes>
-            <Route path="/" element={
-              <>
-                <Hero />
-                <About />
-                <Features />
-                <HowItWorks />
-                <Impact />
-                <Download />
-                <Footer />
-              </>
-            } />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/upload-image" element={<UploadImage />} />
-          </Routes>
-        </motion.div>
-      </AuthProvider>
-    </Router>
-  );
-};
+/* Keyframes for floating effect */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
 
-export default App;
+/* Glow effect for elements */
+.glow {
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+/* Keyframes for glow effect */
+@keyframes glow {
+  from {
+    box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #0ff, 0 0 20px #0ff, 0 0 35px #0ff, 0 0 40px #0ff, 0 0 50px #0ff;
+  }
+  to {
+    box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #0ff, 0 0 40px #0ff, 0 0 70px #0ff, 0 0 80px #0ff, 0 0 100px #0ff;
+  }
+}
+
+/* Hover scaling effect */
+.hover-scale {
+  transition: transform 0.3s ease-in-out;
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+/* Dashboard styles */
+.dashboard {
+  padding: 2rem;
+  background-color: #f9fafb; /* Light gray background */
+  border-radius: 0.5rem; /* Rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Responsive text styles */
+.dashboard h1 {
+  font-size: 2rem; /* Large heading */
+  margin-bottom: 1rem; /* Space below heading */
+}
+
+.dashboard h2 {
+  font-size: 1.5rem; /* Medium heading */
+  color: #4a5568; /* Dark gray color */
+}
