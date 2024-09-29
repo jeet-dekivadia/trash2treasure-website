@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 
 const UploadImage = () => {
   const [error, setError] = useState('');
-  const [uploadSuccess, setUploadSuccess] = useState(false);
   const navigate = useNavigate();
   const db = getFirestore();
 
@@ -20,18 +19,16 @@ const UploadImage = () => {
         await updateDoc(userDocRef, {
           points: increment(100),
         });
-        setUploadSuccess(true);
 
-        // Show congrats message immediately
         alert('Congratulations! You got +100 points!');
-        
-        // Redirect to dashboard
-        navigate('/dashboard');
+        navigate('/dashboard'); // Redirect to dashboard
       } catch (err) {
         setError('Failed to update points. Please try again.');
+        console.error('Error updating points:', err); // Debugging output
       }
     } else {
       setError('Error: User not logged in. Please try again.');
+      console.error('User not logged in'); // Debugging output
     }
   };
 
@@ -45,7 +42,6 @@ const UploadImage = () => {
       >
         Upload Image & Get Points
       </button>
-      {uploadSuccess && <p className="text-green-500 mt-2">Points successfully added!</p>}
       {error && <p className="text-red-500">{error}</p>}
     </div>
   );
